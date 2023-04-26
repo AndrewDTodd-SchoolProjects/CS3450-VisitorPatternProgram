@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CompositePattern
+namespace VisitorPattern
 {
     internal class Directory : IDirectoryComponent
     {
@@ -17,6 +17,8 @@ namespace CompositePattern
         public string Name { get => _name; }
 
         public Directory? Parent { get => _parent; }
+
+        public List<IDirectoryComponent> Children { get => _children; }
 
         public Directory(string name, Directory? parent) => 
             (_name, _parent) = (name,parent);
@@ -31,22 +33,12 @@ namespace CompositePattern
             _children.Remove(component);
         }
 
-        public string List()
+        public void Accept(IDirectoryComponentVisitor visitor)
         {
-            StringBuilder sb = new();
-
-            foreach (var component in _children)
-            {
-                if (component is File)
-                    sb.Append(component.List() + ' ');
-                else
-                    sb.Append(component.Name + ' ');
-            }
-
-            return sb.ToString();
+            visitor.VisitComponent(this);
         }
 
-        public string ListAll(string tabs = "  ")
+        /*public string ListAll(string tabs = "  ")
         {
             StringBuilder sb = new();
 
@@ -56,9 +48,9 @@ namespace CompositePattern
             {
                 sb.Append(tabs + component.ListAll(tabs + "  ") + Environment.NewLine);
             }
-
             return sb.Remove(sb.Length - 1, 1).ToString();
-        }
+
+        }*/
 
         public IDirectoryComponent? ChDir(string dirName)
         {
@@ -95,7 +87,7 @@ namespace CompositePattern
             return this._parent;
         }
 
-        public int Count()
+        /*public int Count()
         {
             int count = 0;
 
@@ -106,7 +98,7 @@ namespace CompositePattern
             }
 
             return count;
-        }
+        }*/
 
         public int CountAll()
         {

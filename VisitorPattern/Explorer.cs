@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CompositePattern
+namespace VisitorPattern
 {
     internal class Explorer
     {
@@ -37,11 +37,11 @@ namespace CompositePattern
                 switch(parts[0])
                 {
                     case "list":
-                        Console.WriteLine(_currentDir.List());
+                        _currentDir.Accept(new ListVisitor());
                         break;
 
                     case "listall":
-                        Console.WriteLine(_currentDir.ListAll());
+                        _currentDir.Accept(new ListAllVisitor());
                         break;
 
                     case "chdir":
@@ -71,11 +71,25 @@ namespace CompositePattern
                         break;
 
                     case "count":
-                        Console.WriteLine(_currentDir.Count());
+                        _currentDir.Accept(new CountVisitor());
                         break;
 
                     case "countall":
-                        Console.WriteLine(_currentDir.CountAll());
+                        _currentDir.Accept(new CountAllVisitor());
+                        break;
+
+                    case "find":
+                        if (parts.Length != 2)
+                        {
+                            Console.WriteLine("invalid element search");
+                            break;
+                        }
+
+                        _currentDir.Accept(new FindVisitor(parts[1]));
+                        break;
+
+                    case "listroots":
+                        _currentDir.Accept(new ListRootsVisitor());
                         break;
 
                     case "q":

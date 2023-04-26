@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Application
+/Output01.png
+/Output02.png
+/PatternUML.png
+/CS3450_ADT_Assignment10_V1.0.zip

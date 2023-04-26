@@ -1,4 +1,4 @@
-﻿namespace CompositePattern
+﻿namespace VisitorPattern
 {
     internal class Program
     {

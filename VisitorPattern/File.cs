@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CompositePattern
+namespace VisitorPattern
 {
     internal class File : IDirectoryComponent
     {
@@ -13,15 +13,16 @@ namespace CompositePattern
         public string Name { get => _name; }
 
         public File(string name) => _name = name;
-        public string List()
+
+        public void Accept(IDirectoryComponentVisitor visitor)
         {
-            return _name;
+            visitor.VisitComponent(this);
         }
 
-        public string ListAll(string tabs = "   ")
+        /*public string ListAll(string tabs = "   ")
         {
-            return _name;
-        }
+            return _name + Environment.NewLine;
+        }*/
 
         public IDirectoryComponent? ChDir(string dirName)
         {
@@ -33,10 +34,10 @@ namespace CompositePattern
             return null;
         }
 
-        public int Count()
+        /*public int Count()
         {
             return 1;
-        }
+        }*/
 
         public int CountAll()
         {

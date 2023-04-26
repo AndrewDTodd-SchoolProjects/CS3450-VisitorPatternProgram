@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CompositePattern
+namespace VisitorPattern
 {
     internal static class DirectoryBuilder
     {
